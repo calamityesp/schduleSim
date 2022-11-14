@@ -1,15 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include 
 
 #define BUFFERSIZE 120
 #define MAX 6
 
+char *algorithms[3] = {"1) FIFO", "2) SJF", "3) RR"};
 
 typedef struct pcb 
 {
     int pid;
-    char *message;
+    int priority;
+    int arrivalTime;
+    int CPUburst;
+    int IOburst;
+    int CPUremainingTime;
+    int IOremainingTime;
+    int waitingTime;
+    int turnaroundTime;
+    int responseTime;
 }process_t;
 
 
@@ -69,11 +79,31 @@ process_t removeData() {
 }
 
 
+process_t * readFile(void)
+{
+    FILE *infile = NULL;
+    int lineCount = 0;
+}
 
+
+void fifo_a()
+{
+    process_t processes[] = readFile();
+    //establish the wait queue
+    
+    //openfile and read all data into an array
+
+    //print process based on the number it has 
+}
 
 void printData(process_t *processData)
 {
     printf("Testing: %s", processData->message);
+}
+
+void printHeader()
+{
+
 }
 
 
@@ -86,32 +116,37 @@ void printData(process_t *processData)
 
 int main (int argc, char * argv[])
 {
-    process_t process;
-    process_t *pProcess = &process;
-    pProcess->message = (char *) malloc(BUFFERSIZE * sizeof(char));
-    pProcess->message = "This is a message"; 
-
+    char uInputBuff[120];
     int quantiumNumber = -1;
     char quantiumSize[4];
+    int algoNum = -1;
 
     printf("Enter quantum number: ");
     fgets((char *)&quantiumSize, sizeof(quantiumSize), stdin);
     quantiumNumber = atoi((char *) quantiumSize );
     printf("You entered the quantium size of %i\n", quantiumNumber);
-
-
-    //read fdata from files
-    //store data into structure
-    //
-
-    printData(pProcess);
-
-    for (int i = 0; i < 5; i++)
+    printf("Select the scheduling algorithm you want to run: \n");
+    for (int i = 0; i <= 2; i++)
     {
-        process_t newProcess = {i, "Some data"};
-        insert(newProcess);
-        printf("Number of elements in queue %d\n", size());
+        printf("%s\n", algorithms[i]);
     }
+    fgets((char *)uInputBuff, sizeof(uInputBuff), stdin);
+    algoNum = atoi((char *) uInputBuff);
+    printf("You entered option: %s\n", algorithms[algoNum]);
+
+    switch (algoNum)
+    {
+    case 1:
+        fifo_a();
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    default:
+        break;
+    }
+
     return 0;
 
 }
